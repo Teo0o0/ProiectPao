@@ -1,9 +1,16 @@
+/*
+    * Oras:
+    * - numeOras
+    * - numarCladiri
+    * - numeTara
+    * Numai numarCladiri poate fi modificat
+ */
 package Cladire;
 
-public class Oras {
-    public String numeOras;
-    public int numarCladiri;
-    public String numeTara;
+public class Oras implements Cloneable{
+    private final String numeOras;
+    private int numarCladiri;
+    private final String numeTara;
 
     public Oras(String numeOras, int numarCladiri, String numeTara) {
         this.numeOras = numeOras;
@@ -11,6 +18,32 @@ public class Oras {
         this.numeTara = numeTara;
     }
 
-    public Oras() {
+    public int getNumarCladiri() {
+        return numarCladiri;
+    }
+
+    public void setNumarCladiri(int numarCladiri) {
+        this.numarCladiri = numarCladiri;
+    }
+
+    public String getNumeOras() {
+        return numeOras;
+    }
+
+    public String getNumeTara() {
+        return numeTara;
+    }
+
+    @Override
+    public Oras clone() throws CloneNotSupportedException {
+        return new Oras(this.numeOras, this.numarCladiri, this.numeTara);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Oras){
+            return (this.numeOras.equals(((Oras) obj).getNumeOras()) && this.numeTara.equals(((Oras) obj).getNumeTara()));
+        }
+        return false;
     }
 }

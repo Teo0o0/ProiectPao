@@ -1,6 +1,13 @@
+/*
+ * Clasa abstracta, contine:
+ * - nume
+ * - varsta
+ * - email
+ * - numarTelefon
+ * Toate pot fi accesate din clasele ce o extind si pot fi modificate
+ */
 package Persoana;
-//// clasa
-public abstract class Persoana {
+public abstract class Persoana implements Cloneable {
     protected String nume;
     protected int varsta;
     protected String email;
@@ -43,5 +50,10 @@ public abstract class Persoana {
 
     public void setNumarTelefon(String numarTelefon) {
         this.numarTelefon = numarTelefon;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

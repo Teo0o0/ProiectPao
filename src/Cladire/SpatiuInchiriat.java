@@ -1,6 +1,10 @@
+/*
+    * Spatiile care pot fi inchiriate, adauga:
+    * - ocupat
+ */
 package Cladire;
 
-public class SpatiuInchiriat extends Spatiu {
+public class SpatiuInchiriat extends Spatiu implements Cloneable {
 
     protected boolean ocupat;
 
@@ -15,5 +19,10 @@ public class SpatiuInchiriat extends Spatiu {
 
     public void setOcupat(boolean ocupat) {
         this.ocupat = ocupat;
+    }
+
+    @Override
+    public SpatiuInchiriat clone() throws CloneNotSupportedException {
+        return new SpatiuInchiriat(this.suprafata, this.cladire.clone(), this.ocupat);
     }
 }

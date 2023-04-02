@@ -1,30 +1,29 @@
+/*
+  * Antecedent :
+  * - descriere : tipul, gravitate
+  * - data adaugare
+  * Nu pot fi modificate dupa adaugare, deci nu avem setteri si toate datele sunt pe privat si final
+  * Si clasa poate fi setata pe final - nu urmeaza extinderi
+ */
 package Chirias;
 
 import java.util.Date;
-public class Antecedent {
-    protected String descriere;
-    protected Date data;
-
-    public Antecedent() {
-    }
+public final class Antecedent implements Cloneable{
+    private final String descriere;
+    private final Date data;
     public Antecedent(String descriere, Date data) {
         this.descriere = descriere;
         this.data = data;
     }
-
     public String getDescriere() {
         return descriere;
     }
-
-    public void setDescriere(String descriere) {
-        this.descriere = descriere;
-    }
-
     public Date getData() {
         return data;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    @Override
+    public Antecedent clone() throws CloneNotSupportedException {
+        return new Antecedent(this.descriere, this.data);
     }
 }

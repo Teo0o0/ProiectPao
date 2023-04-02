@@ -1,9 +1,17 @@
+/*
+    * Produusele folosite, caracterizate de:
+    * - numeConsumabil
+    * - pret
+    * - cantitate
+    * , la momentul cumpararii
+    * Acestea nu pot fi modificate
+ */
 package Factura;
 
 public class Consumabil {
-    protected String numeConsumabil;
-    protected double pret;
-    protected int cantitate;
+    protected final String numeConsumabil;
+    protected final double pret;
+    protected final int cantitate;
 
     public Consumabil(String numeConsumabil, double pret, int cantitate) {
         this.numeConsumabil = numeConsumabil;

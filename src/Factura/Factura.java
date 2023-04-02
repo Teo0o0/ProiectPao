@@ -1,10 +1,17 @@
+/*
+    * Superclasa pentru facturi:
+    * - dataEmitere
+    * - pret
+    * - platit
+    * Doar platit poate fi modificat
+ */
 package Factura;
 
 import java.util.Date;
 
-public abstract class Factura {
-    protected Date dataEmitere;
-    protected double pret;
+public abstract class Factura implements Cloneable{
+    protected final Date dataEmitere;
+    protected final double pret;
     protected boolean platit;
 
     public Factura(Date dataEmitere, double pret, boolean platit) {
@@ -27,5 +34,10 @@ public abstract class Factura {
 
     public double getPret() {
         return pret;
+    }
+
+    @Override
+    public Factura clone() throws CloneNotSupportedException {
+        return this.clone();
     }
 }
