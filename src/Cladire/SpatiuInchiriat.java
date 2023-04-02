@@ -4,8 +4,8 @@ public class SpatiuInchiriat extends Spatiu {
 
     protected boolean ocupat;
 
-    public SpatiuInchiriat(double suprafata, int idCladire, boolean ocupat) {
-        super(suprafata, idCladire);
+    public SpatiuInchiriat(double suprafata, Cladire cladire, boolean ocupat) {
+        super(suprafata, cladire);
         this.ocupat = ocupat;
     }
 
