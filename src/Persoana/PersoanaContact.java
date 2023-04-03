@@ -9,7 +9,7 @@ import Persoana.Persoana;
 
 public class PersoanaContact extends Persoana implements Cloneable {
 
-  protected Oras oras;
+  protected Oras oras; // agregare
 
     public PersoanaContact(String nume, int varsta, String email, String numarTelefon, Oras oras) {
         super(nume, varsta, email, numarTelefon);
@@ -21,8 +21,8 @@ public class PersoanaContact extends Persoana implements Cloneable {
     }
 
     @Override
-    public PersoanaContact clone() throws CloneNotSupportedException {
-        Oras o = this.oras.clone();
+    public PersoanaContact clone() {
+        Oras o = this.oras;
         PersoanaContact c = new PersoanaContact(this.nume, this.varsta, this.email, this.numarTelefon, o);
         return c;
     }

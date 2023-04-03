@@ -8,7 +8,7 @@ package Factura;
 import java.util.Date;
 
 public class FacturaConsumabil extends Factura implements Cloneable{
-    protected Consumabil[] produse;
+    protected Consumabil[] produse; // compozitie
 
     public FacturaConsumabil(Date dataEmitere, double pret, boolean platit, Consumabil[] produse) {
         super(dataEmitere, pret, platit);

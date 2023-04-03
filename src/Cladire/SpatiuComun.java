@@ -25,7 +25,7 @@ public class SpatiuComun extends Spatiu implements Cloneable{
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return new SpatiuComun(this.suprafata, this.cladire.clone(), this.tipSpatiu);
+    public Object clone() {
+        return new SpatiuComun(this.suprafata, this.cladire, this.tipSpatiu);
     }
 }

@@ -21,9 +21,9 @@ import Persoana.PersoanaContact;
 public class Chirias implements Cloneable{
     private final String numeAfacere;
     private String iban;
-    private PersoanaContact[] persoaneContact;
-    private Contract[] contracte;
-    private Antecedent[] antecedente;
+    private PersoanaContact[] persoaneContact; // compozitie in cazul nostru
+    private Contract[] contracte; // compozitie
+    private Antecedent[] antecedente; // compozitie
 
     public Chirias(String numeAfacere, String iban, PersoanaContact[] persoaneContact, Contract[] contracte, Antecedent[] antecedente) {
         this.numeAfacere = numeAfacere;

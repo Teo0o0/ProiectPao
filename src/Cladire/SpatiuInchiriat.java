@@ -22,7 +22,7 @@ public class SpatiuInchiriat extends Spatiu implements Cloneable {
     }
 
     @Override
-    public SpatiuInchiriat clone() throws CloneNotSupportedException {
-        return new SpatiuInchiriat(this.suprafata, this.cladire.clone(), this.ocupat);
+    public SpatiuInchiriat clone() {
+        return new SpatiuInchiriat(this.suprafata, this.cladire, this.ocupat);
     }
 }

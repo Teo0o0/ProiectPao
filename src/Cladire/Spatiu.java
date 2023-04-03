@@ -7,7 +7,7 @@ package Cladire;
 
 public abstract class Spatiu implements Cloneable{
     protected double suprafata;
-    protected Cladire cladire;
+    protected Cladire cladire; // agregare
 
     public Spatiu(double suprafata, Cladire cladire) {
         this.suprafata = suprafata;
@@ -18,8 +18,8 @@ public abstract class Spatiu implements Cloneable{
         return suprafata;
     }
 
-    public Cladire getCladire() throws CloneNotSupportedException {
-        return cladire.clone();
+    public Cladire getCladire(){
+        return cladire;
     }
 
     @Override

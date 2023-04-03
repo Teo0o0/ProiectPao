@@ -12,12 +12,14 @@ public class FunctionalitateAdministrator {
         this.c = c;
     }
     public Chirias[] GetChiriasi(Date azi){
+        /// returneaza lista chiriasilor ce au cel putin un spatiu in cladire
         return null;
     }
     public double GetFacturi(Date azi){
+        /// returneaza totalul facturilor pe luna anterioara
         return 0;
     }
     public void AfisCumparaturi(Date azi){
-
+        /// afiseaza produsele cumparate luna anterioara
     }
 }

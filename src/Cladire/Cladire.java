@@ -14,19 +14,22 @@ package Cladire;
 
 public class Cladire implements Cloneable {
     protected String numeCladire;
-    protected Oras oras;
+    protected Oras oras; // agregare
     protected final int numarSpatii;
     protected final double suprafata;
-    protected Spatiu[] spatii;
-    protected Factura.Factura[] facturi;
+    protected Spatiu[] spatii; // compozitie
+    protected Factura.Factura[] facturi; // compozitie
+    protected Chirias.Contract[] contracte; // agregare
 
-    public Cladire(String numeCladire, Oras oras, int numarSpatii, double suprafata, Spatiu[] spatii, Factura.Factura[] facturi) {
+    public Cladire(String numeCladire, Oras oras, int numarSpatii, double suprafata, Spatiu[] spatii, Factura.Factura[] facturi, Chirias.Contract[] contracte) {
         this.numeCladire = numeCladire;
         this.oras = oras;
         this.numarSpatii = numarSpatii;
         this.suprafata = suprafata;
-        this.spatii = spatii;
-        this.facturi = facturi;
+        this.spatii = spatii.clone();
+        this.facturi = facturi.clone();
+        this.contracte = new Chirias.Contract[contracte.length];
+        System.arraycopy(contracte, 0, this.contracte, 0, contracte.length);
     }
 
     public String getNumeCladire() {
@@ -34,7 +37,7 @@ public class Cladire implements Cloneable {
     }
 
     public Oras getOras() throws CloneNotSupportedException {
-        return oras.clone();
+        return oras;
     }
 
     public int getNumarSpatii() {
@@ -55,7 +58,7 @@ public class Cladire implements Cloneable {
 
     @Override
     public Cladire clone() throws CloneNotSupportedException {
-        return new Cladire(this.numeCladire, this.oras.clone(), this.numarSpatii, this.suprafata, this.spatii.clone(), this.facturi.clone());
+        return new Cladire(this.numeCladire, this.oras.clone(), this.numarSpatii, this.suprafata, this.spatii.clone(), this.facturi.clone(), this.contracte);
     }
     public void AdaugaFactura(Factura.Factura facturaNoua) throws CloneNotSupportedException {
         Factura.Factura f[];

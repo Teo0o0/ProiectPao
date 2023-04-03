@@ -14,14 +14,14 @@ import java.util.Date;
 
 public class FacturaReparatie extends Factura implements Cloneable{
     protected final String tipReparatie;
-    protected final PersoanaContact persoana;
-    protected final Cladire.Spatiu spatiu;
+    protected final PersoanaContact persoana; // compozitie
+    protected final Cladire.Spatiu spatiu; // agregare
 
     public FacturaReparatie(Date dataEmitere, double pret, boolean platit, String tipReparatie, PersoanaContact persoana, Spatiu spatiu) throws CloneNotSupportedException {
         super(dataEmitere, pret, platit);
         this.tipReparatie = tipReparatie;
         this.persoana = persoana.clone();
-        this.spatiu = (Spatiu) spatiu.clone();
+        this.spatiu = spatiu;
     }
 
     public String getTipReparatie() {
@@ -33,11 +33,11 @@ public class FacturaReparatie extends Factura implements Cloneable{
     }
 
     public Spatiu getSpatiu() throws CloneNotSupportedException {
-        return (Spatiu) spatiu.clone();
+        return spatiu;
     }
 
     @Override
     public FacturaReparatie clone() throws CloneNotSupportedException {
-        return new FacturaReparatie(this.dataEmitere, this.pret, this.platit, this.tipReparatie, this.persoana.clone(), (Spatiu) this.spatiu.clone());
+        return new FacturaReparatie(this.dataEmitere, this.pret, this.platit, this.tipReparatie, this.persoana.clone(), this.spatiu);
     }
 }

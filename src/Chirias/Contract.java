@@ -18,7 +18,7 @@ public class Contract implements Cloneable{
     protected Date dataFinalizare;
     protected final double pretMP;
     protected final double rataPenalizare;
-    protected final SpatiuInchiriat spatiu;
+    protected final SpatiuInchiriat spatiu; // agregare
 
     public Contract(Date dataSemnare, Date dataFinalizare, double pretMP, double rataPenalizare, SpatiuInchiriat spatiu) {
         this.dataSemnare = dataSemnare;
