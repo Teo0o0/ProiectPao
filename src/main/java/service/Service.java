@@ -4,9 +4,11 @@ import model.chirias.Chirias;
 import model.cladire.Cladire;
 import model.persoana.Angajat;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Service {
@@ -15,6 +17,14 @@ public class Service {
     private ArrayList<Chirias> chiriasi;
     private ArrayList<Angajat> angajati;
     private static Service instanta = null;
+    private static final String DB_URL = "jdbc:mysql://sql8.freemysqlhosting.net:3306/sql8621755";
+    private static final String USERNAME = "sql8621755";
+    private static final String PASSWORD = "fQT6UYrabi";
+    public static Connection connection;
+
+    private static void Con() throws SQLException {
+        connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+    }
 
     private Service() {
         users = new HashMap<>();
@@ -22,6 +32,11 @@ public class Service {
         users.put("admin", "admin123");
         users.put("chirias", "chirias123");
         users.put("sef", "sef123");
+        try{
+            Con();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Service getInstance() {
