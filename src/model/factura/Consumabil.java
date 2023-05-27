@@ -6,7 +6,7 @@
     * , la momentul cumpararii
     * Acestea nu pot fi modificate
  */
-package Factura;
+package model.factura;
 
 public class Consumabil {
     protected final String numeConsumabil;

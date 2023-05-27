@@ -4,8 +4,9 @@
     * - tipUtilitate
     * Nu pot fi modificate ulterior
  */
-package Factura;
+package model.factura;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class FacturaUtilitate extends Factura{
@@ -18,11 +19,27 @@ public class FacturaUtilitate extends Factura{
         this.tipUtilitate = tipUtilitate;
     }
 
+    @Override
+    public String toString() {
+        return "FacturaUtilitate{" +
+                "dataScadenta=" + dataScadenta +
+                ", tipUtilitate='" + tipUtilitate + '\'' +
+                ", dataEmitere=" + dataEmitere +
+                ", pret=" + pret +
+                ", platit=" + platit +
+                '}';
+    }
+
     public Date getDataScadenta() {
         return dataScadenta;
     }
 
     public String getTipUtilitate() {
         return tipUtilitate;
+    }
+
+    @Override
+    public ArrayList<Consumabil> getProduse() {
+        return null;
     }
 }

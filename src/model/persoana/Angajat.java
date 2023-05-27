@@ -7,7 +7,7 @@
     * - dataDemisie
     * Toate campurile, cu exceptia datei de Angajare, pot fi modificate pe parcurs
  */
-package Persoana;
+package model.persoana;
 
 import java.util.Date;
 import java.util.Objects;

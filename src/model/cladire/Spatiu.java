@@ -1,9 +1,11 @@
 /*
     * Superclasa pentru Spatiu, cu:
     * - suprafata
-    * - cladire
+    * - model.chirias.cladire
  */
-package Cladire;
+package model.cladire;
+
+import model.chirias.Contract;
 
 public abstract class Spatiu implements Cloneable{
     protected double suprafata;
@@ -25,5 +27,11 @@ public abstract class Spatiu implements Cloneable{
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    abstract public Contract getContract();
+
+    public double getReparatii() {
+        return 0;
     }
 }

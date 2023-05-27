@@ -5,8 +5,9 @@
     * - platit
     * Doar platit poate fi modificat
  */
-package Factura;
+package model.factura;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Factura implements Cloneable{
@@ -39,5 +40,16 @@ public abstract class Factura implements Cloneable{
     @Override
     public Factura clone() throws CloneNotSupportedException {
         return this.clone();
+    }
+
+    abstract public ArrayList<Consumabil> getProduse();
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "dataEmitere=" + dataEmitere +
+                ", pret=" + pret +
+                ", platit=" + platit +
+                '}';
     }
 }

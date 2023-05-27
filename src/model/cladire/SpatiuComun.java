@@ -2,7 +2,9 @@
     * Spatiile compune ce extind cu:
     * - tipSpatiu
  */
-package Cladire;
+package model.cladire;
+
+import model.chirias.Contract;
 
 import java.util.Objects;
 
@@ -27,5 +29,10 @@ public class SpatiuComun extends Spatiu implements Cloneable{
     @Override
     public Object clone() {
         return new SpatiuComun(this.suprafata, this.cladire, this.tipSpatiu);
+    }
+
+    @Override
+    public Contract getContract() {
+        return null;
     }
 }

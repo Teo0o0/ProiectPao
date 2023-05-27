@@ -6,7 +6,7 @@
  * - numarTelefon
  * Toate pot fi accesate din clasele ce o extind si pot fi modificate
  */
-package Persoana;
+package model.persoana;
 public abstract class Persoana implements Cloneable {
     protected String nume;
     protected int varsta;

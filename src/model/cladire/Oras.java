@@ -5,9 +5,9 @@
     * - numeTara
     * Numai numarCladiri poate fi modificat
  */
-package Cladire;
+package model.cladire;
 
-public class Oras implements Cloneable{
+public class Oras implements Cloneable {
     private final String numeOras;
     private int numarCladiri;
     private final String numeTara;
@@ -41,7 +41,7 @@ public class Oras implements Cloneable{
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Oras){
+        if (obj instanceof Oras) {
             return (this.numeOras.equals(((Oras) obj).getNumeOras()) && this.numeTara.equals(((Oras) obj).getNumeTara()));
         }
         return false;

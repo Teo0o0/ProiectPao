@@ -3,9 +3,8 @@
     * - oras
     * Folosita pentru persoanele de contact date de chiriasi si reparatii
  */
-package Persoana;
-import Cladire.Oras;
-import Persoana.Persoana;
+package model.persoana;
+import model.cladire.Oras;
 
 public class PersoanaContact extends Persoana implements Cloneable {
 
