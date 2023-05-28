@@ -8,8 +8,10 @@
  */
 package model.factura;
 
+import service.Audit;
 import service.Service;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class Consumabil {
@@ -61,8 +63,11 @@ public class Consumabil {
             }
 
             System.out.println("Success!\n");
+            Audit.logAction("Insert");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -80,8 +85,11 @@ public class Consumabil {
             updateStatement.setInt(3, dbId);
             updateStatement.executeUpdate();
 
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -93,8 +101,11 @@ public class Consumabil {
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }

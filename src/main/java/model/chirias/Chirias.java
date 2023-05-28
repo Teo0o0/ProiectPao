@@ -2,9 +2,11 @@ package model.chirias;
 
 import model.factura.Factura;
 import model.persoana.PersoanaContact;
+import service.Audit;
 import service.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -113,10 +115,13 @@ public class Chirias implements Cloneable {
             }
 
             System.out.println("Success!\n");
+            Audit.logAction("Insert");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
-        return true;
+        return false;
     }
 
     public boolean Update(Connection connection){
@@ -131,10 +136,13 @@ public class Chirias implements Cloneable {
             updateStatement.setString(2, iban);
             updateStatement.setInt(3, dbId);
             updateStatement.executeUpdate();
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
-        return true;
+        return false;
     }
 
     public boolean Delete(Connection connection){
@@ -144,8 +152,11 @@ public class Chirias implements Cloneable {
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }

@@ -6,9 +6,11 @@
 package model.persoana;
 import model.chirias.Chirias;
 import model.cladire.Oras;
+import service.Audit;
 import service.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.IOException;
 import java.sql.*;
 
 public class PersoanaContact extends Persoana implements Cloneable {
@@ -92,8 +94,11 @@ public class PersoanaContact extends Persoana implements Cloneable {
             }
 
             System.out.println("Success!\n");
+            Audit.logAction("Insert");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -120,8 +125,11 @@ public class PersoanaContact extends Persoana implements Cloneable {
             updateStatement.setInt(6, chirias_id);
             updateStatement.setInt(7, dbId);
             updateStatement.executeUpdate();
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -133,8 +141,11 @@ public class PersoanaContact extends Persoana implements Cloneable {
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }

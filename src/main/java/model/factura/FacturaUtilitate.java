@@ -7,8 +7,10 @@
 package model.factura;
 
 import model.cladire.Cladire;
+import service.Audit;
 import service.Service;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -88,8 +90,11 @@ public class FacturaUtilitate extends Factura{
             }
 
             System.out.println("Success!\n");
+            Audit.logAction("Insert");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -114,8 +119,11 @@ public class FacturaUtilitate extends Factura{
             updateStatement.setDate(6, (java.sql.Date) dataScadenta);
             updateStatement.setInt(7, dbId);
             updateStatement.executeUpdate();
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -127,8 +135,11 @@ public class FacturaUtilitate extends Factura{
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }

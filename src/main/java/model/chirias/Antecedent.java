@@ -7,6 +7,9 @@
  */
 package model.chirias;
 
+import service.Audit;
+
+import java.io.IOException;
 import java.sql.*;
 import java.util.Date;
 public final class Antecedent{
@@ -52,8 +55,11 @@ public final class Antecedent{
             }
 
             System.out.println("Success!\n");
+            Audit.logAction("Insert");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -68,8 +74,11 @@ public final class Antecedent{
             antecedentUpdateStatement.setInt(3, chirias.getDbId());
             antecedentUpdateStatement.setInt(4, dbId);
             antecedentUpdateStatement.executeUpdate();
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -81,8 +90,11 @@ public final class Antecedent{
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }

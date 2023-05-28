@@ -1,4 +1,5 @@
 import service.Admin;
+import service.Audit;
 import service.Chir;
 import service.Service;
 
@@ -6,6 +7,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        Audit a = new Audit();
         Service service = Service.getInstance();
         Scanner scanner = new Scanner(System.in);
 

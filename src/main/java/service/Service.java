@@ -12,6 +12,7 @@ import model.persoana.PersoanaContact;
 
 import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.IOException;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -104,6 +105,7 @@ public class Service {
 
             if (!resultSet.next()) {
                 // Create tables if they don't exist
+                Audit.logAction("Creare tabele");
 
                 // Chirias
                 String chiriasQuery = "CREATE TABLE chiriasi (id INT PRIMARY KEY AUTO_INCREMENT, " +
@@ -256,6 +258,8 @@ public class Service {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Eroare fisier Audit");
         }
     }
 
@@ -562,6 +566,7 @@ public class Service {
             String deleteFacturiUtilitatiQuery = "DELETE FROM facturi_utilitati";
             String deleteFacturiCFQuery = "DELETE FROM consumabil_factura";
 
+            Audit.logAction("Delete all");
 
             Statement statement = connection.createStatement();
             statement.executeUpdate(deleteFacturiCFQuery);
@@ -583,6 +588,8 @@ public class Service {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            System.out.println("Eroare fisier Audit");
         }
     }
     private synchronized void MethodDrop(){
@@ -602,6 +609,7 @@ public class Service {
             String deleteFacturiUtilitatiQuery = "DROP TABLE IF EXISTS facturi_utilitati";
             String deleteFacturiCFQuery = "DROP TABLE IF EXISTS consumabil_factura";
 
+            Audit.logAction("Drop all");
 
             Statement statement = connection.createStatement();
             statement.executeUpdate(deleteFacturiCFQuery);
@@ -620,6 +628,8 @@ public class Service {
             statement.executeUpdate(deleteOraseQuery);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            System.out.println("Eroare fisier Audit");
         }
     }
 

@@ -1,8 +1,10 @@
 package model.factura;
 
 import model.cladire.Cladire;
+import service.Audit;
 import service.Service;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,8 +85,11 @@ public class FacturaConsumabil extends Factura implements Cloneable {
                 consumabilInsertStatement.executeUpdate();
             }
 
+            Audit.logAction("Insert");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -105,8 +110,11 @@ public class FacturaConsumabil extends Factura implements Cloneable {
             updateStatement.setInt(4, cladire.getDbId());
             updateStatement.setInt(5, dbId);
             updateStatement.executeUpdate();
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -118,8 +126,11 @@ public class FacturaConsumabil extends Factura implements Cloneable {
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }

@@ -3,9 +3,11 @@ package model.cladire;
 import model.chirias.Contract;
 import model.factura.Factura;
 import model.persoana.Angajat;
+import service.Audit;
 import service.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -165,9 +167,11 @@ public class Cladire implements Cloneable {
             }
 
             System.out.println("Success!\n");
+            Audit.logAction("Insert");
         } catch (SQLException e) {
-            System.out.println("Eroare\n");
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -188,8 +192,11 @@ public class Cladire implements Cloneable {
             updateStatement.setDouble(4, suprafata);
             updateStatement.setInt(5, dbId);
             updateStatement.executeUpdate();
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -201,8 +208,11 @@ public class Cladire implements Cloneable {
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }

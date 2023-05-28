@@ -5,8 +5,10 @@
 package model.cladire;
 
 import model.chirias.Contract;
+import service.Audit;
 import service.Service;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class SpatiuInchiriat extends Spatiu implements Cloneable {
@@ -84,8 +86,11 @@ public class SpatiuInchiriat extends Spatiu implements Cloneable {
             }
 
             System.out.println("Success!\n");
+            Audit.logAction("Insert");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -110,8 +115,11 @@ public class SpatiuInchiriat extends Spatiu implements Cloneable {
             updateStatement.setBoolean(4, ocupat);
             updateStatement.setInt(5, dbId);
             updateStatement.executeUpdate();
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -123,8 +131,11 @@ public class SpatiuInchiriat extends Spatiu implements Cloneable {
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }

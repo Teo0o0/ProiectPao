@@ -10,8 +10,10 @@
 package model.chirias;
 
 import model.cladire.SpatiuInchiriat;
+import service.Audit;
 import service.Service;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.Date;
 
@@ -125,10 +127,13 @@ public class Contract{
             }
 
             System.out.println("Success!\n");
+            Audit.logAction("Insert");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
-        return true;
+        return false;
     }
 
     public boolean Update(Connection connection){
@@ -151,8 +156,11 @@ public class Contract{
             updateStatement.setInt(6, chirias.getDbId());
             updateStatement.setInt(7, dbId);
             updateStatement.executeUpdate();
+            Audit.logAction("Update");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
@@ -164,8 +172,11 @@ public class Contract{
             PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
             antecedentDeleteStatement.setInt(1, dbId);
             antecedentDeleteStatement.executeUpdate();
+            Audit.logAction("Delete");
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            System.out.println("Eroare Audit");
         }
         return true;
     }
