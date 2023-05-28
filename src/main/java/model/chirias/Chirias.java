@@ -2,11 +2,16 @@ package model.chirias;
 
 import model.factura.Factura;
 import model.persoana.PersoanaContact;
+import service.Service;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Chirias implements Cloneable {
     private final String numeAfacere;
     private String iban;
+    private Integer dbId = null;
     private ArrayList<PersoanaContact> persoaneContact;
     private ArrayList<Contract> contracte;
     private ArrayList<Antecedent> antecedente;
@@ -17,6 +22,11 @@ public class Chirias implements Cloneable {
         this.persoaneContact = new ArrayList<>(persoaneContact);
         this.contracte = new ArrayList<>(contracte);
         this.antecedente = new ArrayList<>(antecedente);
+    }
+
+    public Chirias(String numeAfacere, String iban) {
+        this.numeAfacere = numeAfacere;
+        this.iban = iban;
     }
 
     public String getNumeAfacere() {
@@ -76,6 +86,68 @@ public class Chirias implements Cloneable {
         antecedente.add(aNou.Copie());
     }
 
-//    public Factura[] getFacturi() {
-//    }
+    public Integer getDbId() {
+        if(dbId == null){
+            Insert(Service.connection);
+        }
+        System.out.println(dbId);
+        return dbId;
+    }
+
+    public boolean Insert(Connection connection){
+        try{
+            Statement statement = connection.createStatement();
+            String insertQuery = "INSERT INTO chiriasi (nume_afacere, " +
+                    "iban) VALUES (?, ?)";
+            PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
+            insertStatement.setString(1, numeAfacere);
+            insertStatement.setString(2, iban);
+            insertStatement.executeUpdate();
+            Statement idStatement = connection.createStatement();
+            ResultSet idResultSet = idStatement.executeQuery("SELECT LAST_INSERT_ID()");
+            if (idResultSet.next()) {
+                dbId = idResultSet.getInt(1);
+                System.out.println("Newly inserted ID: " + dbId);
+            } else {
+                System.out.println("Failed to retrieve the generated ID.");
+            }
+
+            System.out.println("Success!\n");
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean Update(Connection connection){
+        try{
+            Statement statement = connection.createStatement();
+            String updateQuery = "UPDATE chiriasi SET " +
+                    "nume_afacere = ?, " +
+                    "iban = ? " +
+                    "WHERE id = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            updateStatement.setString(1, numeAfacere);
+            updateStatement.setString(2, iban);
+            updateStatement.setInt(3, dbId);
+            updateStatement.executeUpdate();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean Delete(Connection connection){
+        try{
+            Statement statement = connection.createStatement();
+            String deleteQuery = "DELETE FROM chiriasi WHERE id = ?";
+            PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
+            antecedentDeleteStatement.setInt(1, dbId);
+            antecedentDeleteStatement.executeUpdate();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
 }

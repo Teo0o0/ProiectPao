@@ -10,7 +10,9 @@
 package model.chirias;
 
 import model.cladire.SpatiuInchiriat;
+import service.Service;
 
+import java.sql.*;
 import java.util.Date;
 
 public class Contract{
@@ -18,8 +20,9 @@ public class Contract{
     protected Date dataFinalizare;
     protected final double pretMP;
     protected final double rataPenalizare;
-    protected final SpatiuInchiriat spatiu; // agregare
-    protected final Chirias chirias;
+    protected SpatiuInchiriat spatiu; // agregare
+    protected Chirias chirias;
+    private Integer dbId = null;
 
     public Contract(Date dataSemnare, Date dataFinalizare, double pretMP, double rataPenalizare, SpatiuInchiriat spatiu, Chirias chirias) {
         this.dataSemnare = dataSemnare;
@@ -27,6 +30,21 @@ public class Contract{
         this.pretMP = pretMP;
         this.rataPenalizare = rataPenalizare;
         this.spatiu = spatiu;
+        this.chirias = chirias;
+    }
+
+    public Contract(Date dataSemnare, Date dataFinalizare, double pretMP, double rataPenalizare) {
+        this.dataSemnare = dataSemnare;
+        this.dataFinalizare = dataFinalizare;
+        this.pretMP = pretMP;
+        this.rataPenalizare = rataPenalizare;
+    }
+
+    public void setSpatiu(SpatiuInchiriat spatiu) {
+        this.spatiu = spatiu;
+    }
+
+    public void setChirias(Chirias chirias) {
         this.chirias = chirias;
     }
 
@@ -73,5 +91,83 @@ public class Contract{
 
     }
 
+    public Integer getDbId() {
+        if(dbId == null){
+            Insert(Service.connection);
+        }
+        return dbId;
+    }
+
+    public boolean Insert(Connection connection){
+        try{
+            Statement statement = connection.createStatement();
+            String insertQuery = "INSERT INTO contracte (data_semnare, " +
+                    "data_finalizare, " +
+                    "pret_mp, " +
+                    "rata_penalizare, " +
+                    "spatiu_inchiriat_id, " +
+                    "chirias_id) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
+            insertStatement.setDate(1, (java.sql.Date) dataSemnare);
+            insertStatement.setDate(2, (java.sql.Date) dataFinalizare);
+            insertStatement.setDouble(3, pretMP);
+            insertStatement.setDouble(4, rataPenalizare);
+            insertStatement.setInt(5, spatiu.getDbId());
+            insertStatement.setInt(6, chirias.getDbId());
+            insertStatement.executeUpdate();
+            Statement idStatement = connection.createStatement();
+            ResultSet idResultSet = idStatement.executeQuery("SELECT LAST_INSERT_ID()");
+            if (idResultSet.next()) {
+                dbId = idResultSet.getInt(1);
+                System.out.println("Newly inserted ID: " + dbId);
+            } else {
+                System.out.println("Failed to retrieve the generated ID.");
+            }
+
+            System.out.println("Success!\n");
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean Update(Connection connection){
+        try{
+            Statement statement = connection.createStatement();
+            String updateQuery = "UPDATE contracte SET " +
+                    "data_semnare = ?, " +
+                    "data_finalizare = ?, " +
+                    "pret_mp = ?, " +
+                    "rata_penalizare = ?, " +
+                    "spatiu_inchiriat_id = ?, " +
+                    "chirias_id = ? " +
+                    "WHERE id = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            updateStatement.setDate(1, (java.sql.Date) dataSemnare);
+            updateStatement.setDate(2, (java.sql.Date) dataFinalizare);
+            updateStatement.setDouble(3, pretMP);
+            updateStatement.setDouble(4, rataPenalizare);
+            updateStatement.setInt(5, spatiu.getDbId());
+            updateStatement.setInt(6, chirias.getDbId());
+            updateStatement.setInt(7, dbId);
+            updateStatement.executeUpdate();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean Delete(Connection connection){
+        try{
+            Statement statement = connection.createStatement();
+            String deleteQuery = "DELETE FROM contracte WHERE id = ?";
+            PreparedStatement antecedentDeleteStatement = connection.prepareStatement(deleteQuery);
+            antecedentDeleteStatement.setInt(1, dbId);
+            antecedentDeleteStatement.executeUpdate();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
 
 }

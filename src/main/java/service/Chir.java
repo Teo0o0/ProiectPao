@@ -1,13 +1,22 @@
 package service;
 import model.chirias.Contract;
-import model.factura.Factura;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Chir {
     public final model.chirias.Chirias chirias;
+    public final ArrayList<String> comenzi = new ArrayList<>();
     public Chir(model.chirias.Chirias chirias) {
         this.chirias = chirias;
+        comenzi.add("1 - GetFacturaCurenta");
+        comenzi.add("2 - GetTotal");
+        comenzi.add("3 - GetReparatii");
+        comenzi.add("4 - Stop");
+    }
+    public void Consulta(){
+        System.out.println(comenzi);
     }
     public double GetFacturaCurenta(Date azi, Contract c) throws CloneNotSupportedException {
         /// returneaza totalul de plata pe luna anterioara si afiseaza detaliile
@@ -32,7 +41,7 @@ public class Chir {
 
         for (Contract contract : chirias.getContracte()) {
             if (contract.getDataFinalizare().before(azi)) {
-
+                System.out.println(contract.getSpatiu());
                 totalReparatii += contract.getSpatiu().getReparatii();
             }
         }

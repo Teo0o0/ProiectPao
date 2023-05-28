@@ -13,15 +13,25 @@ import java.util.List;
 
 public class Sef {
     private static Sef instanta = null;
-    private List<Cladire> cladiri; // agregare
-    private List<Angajat> angajati; // compozitie
+    public List<Cladire> cladiri;
+    public List<Angajat> angajati;
+    private ArrayList<String> comenzi = new ArrayList<>();
 
     private Sef(List<Cladire> cladiri, List<Angajat> angajati) {
         this.cladiri = new ArrayList<>(cladiri);
         this.angajati = new ArrayList<>(angajati);
+        comenzi.add("1 - GetTotal");
+        comenzi.add("2 - GetBalanta");
+        comenzi.add("3 - GetFacturi");
+        comenzi.add("4 - GetAngajati");
+        comenzi.add("5 - InchiriereSpatiu");
+        comenzi.add("6 - Stop");
+    }
+    public void Consulta(){
+        System.out.println(comenzi);
     }
 
-    public static Sef getInstance(List<Cladire> cladiri, List<Angajat> angajati) {
+    public synchronized static Sef getInstance(List<Cladire> cladiri, List<Angajat> angajati) {
         if (instanta == null) {
             instanta = new Sef(cladiri, angajati);
         }

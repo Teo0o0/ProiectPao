@@ -7,6 +7,8 @@ package model.cladire;
 
 import model.chirias.Contract;
 
+import java.sql.Connection;
+
 public abstract class Spatiu implements Cloneable{
     protected double suprafata;
     protected Cladire cladire; // agregare
@@ -34,4 +36,9 @@ public abstract class Spatiu implements Cloneable{
     public double getReparatii() {
         return 0;
     }
+    abstract Integer getDbId();
+    abstract public boolean Insert(Connection connection);
+    abstract public boolean Update(Connection connection);
+    abstract public boolean Delete(Connection connection);
+
 }

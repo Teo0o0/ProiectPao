@@ -11,9 +11,17 @@ import java.util.Date;
 
 public class Admin {
     public final Cladire c;
+    public final ArrayList<String> comenzi = new ArrayList<>();
 
     public Admin(Cladire c) {
         this.c = c;
+        comenzi.add("1 - GetChiriasi");
+        comenzi.add("2 - GetFacturi");
+        comenzi.add("3 - AfisCumparaturi");
+        comenzi.add("4 - Stop");
+    }
+    public void Consulta(){
+        System.out.println(comenzi);
     }
     public Chirias[] GetChiriasi(Date azi) throws CloneNotSupportedException {
         /// returneaza lista chiriasilor ce au cel putin un spatiu in model.chirias.cladire

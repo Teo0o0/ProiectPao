@@ -7,6 +7,11 @@
  * Toate pot fi accesate din clasele ce o extind si pot fi modificate
  */
 package model.persoana;
+
+import model.chirias.Chirias;
+
+import java.sql.Connection;
+
 public abstract class Persoana implements Cloneable {
     protected String nume;
     protected int varsta;
@@ -56,4 +61,10 @@ public abstract class Persoana implements Cloneable {
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+    abstract Integer getDbId();
+    abstract public boolean Insert(Connection connection);
+    abstract public boolean Update(Connection connection);
+    abstract public boolean Insert(Connection connection, Chirias c);
+    abstract public boolean Update(Connection connection, Chirias c);
+    abstract public boolean Delete(Connection connection);
 }
